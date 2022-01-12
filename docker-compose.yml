@@ -1,0 +1,34 @@
+version: "3"
+services:
+  postgres:
+    networks:
+        - postgres-network
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - /var/lib/postgresql:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+  pgadmin4:
+    networks:
+        - postgres-network
+    image: dpage/pgadmin4
+    depends_on:
+        - postgres
+    ports:
+      - "8080:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=talles.balardin@compasso.com.br
+      - PGADMIN_DEFAULT_PASSWORD=86526769
+    links:
+      - "postgres:database"
+
+volumes:
+  reserved: 
+
+networks:
+    postgres-network:
+       driver: bridge
+      
