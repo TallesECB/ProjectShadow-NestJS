@@ -1,24 +1,24 @@
 import { Exclude } from 'class-transformer';
-import { WalletController } from 'src/api/controller/wallets/wallet.controller';
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Wallet } from './wallet.entity';
 
-@Entity('coins')
+@Entity('coin')
 export class Coins {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  idCoin: string;
 
   @Column({ nullable: false })
-  quoteTo: string;
+  coin: string;
 
   @Column({ nullable: false })
-  currentCoin: string;
+  fullname: string;
 
   @Column({ nullable: false })
-  value: number;
+  amont: number;
 
-  @ManyToOne(() => Wallet, (wallet) => wallet.address)
-  wallets: WalletController;
+  @ManyToOne(() => Wallet, (w) => w.coins)
+  wallet: Wallet;
+  coins: Wallet[];
 
   @Exclude()
   @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP(6)', select: false })

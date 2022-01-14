@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, Query, DefaultValuePipe, ParseIntPipe, HttpCode} from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, HttpCode } from '@nestjs/common';
 import { WalletService } from '../../service/wallets/wallet.service';
 import { Wallet } from '../../models/wallet.entity';
 import { JoiPipe } from 'nestjs-joi';
@@ -6,6 +6,8 @@ import { WalletDto } from '../../dto/wallets/wallet.dto';
 import { ErrorDto } from '../../dto/error.dto';
 import { SearchWalletDto } from '../../dto/wallets/search-wallet.dto';
 import { ListWalletDto } from '../../dto/wallets/list-wallet.dto';
+import { AddressDto } from '../../dto/wallets/address.dto';
+import { CoinDto } from '../../dto/coins/coin.dto';
 
 import {
   ApiBadRequestResponse,
@@ -13,7 +15,7 @@ import {
   ApiNotFoundResponse,
   ApiNoContentResponse,
   ApiOkResponse,
-  ApiTags,
+  ApiTags
 } from '@nestjs/swagger';
 
 @ApiTags('Wallets')
@@ -37,22 +39,20 @@ export class WalletController {
   @Get(':address')
   @ApiOkResponse({ description: 'Operation succeeded.', type: WalletDto })
   @ApiNotFoundResponse({ description: 'The Wallet was not found.', type: ErrorDto, isArray: true })
-  findOneByAddress(@Param('address') address: string) {
+  findOneByAddress(@Param(JoiPipe) address: AddressDto) {
     return this.walletService.findOneByAddress(address);
   }
 
-  //@Put(':address')
-  //@ApiOkResponse({ description: 'Operation succeeded.', type: WalletDto })
-  //@ApiNotFoundResponse({ description: 'The Wallet was not found.', type: ErrorDto, isArray: true })
-  //update(@Param('address') address: number, @Body() updateWalletDto: WalletDto) {
-  // return this.walletService.update(address, updateWalletDto);
-  //}
+  @Put(':address')  
+  update(@Param(JoiPipe) address: AddressDto, @Body(JoiPipe) updateCoinDto: CoinDto) {
+    return this.walletService.update(address, updateCoinDto);
+  }
 
   @Delete(':address')
   @ApiNoContentResponse({ description: 'Wallet removed.' })
   @ApiNotFoundResponse({ description: 'The Wallet was not found.', type: ErrorDto, isArray: true })
   @HttpCode(204)
-  remove(@Param('address') address: string) {
+  remove(@Param(JoiPipe) address: AddressDto) {
     return this.walletService.remove(address);
   }
 }

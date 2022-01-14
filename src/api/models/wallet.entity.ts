@@ -16,13 +16,9 @@ export class Wallet {
   @Column({ type: 'date', nullable: false })
   birthdate: Date;
 
-  /*
-  @OneToMany(() => Coins, (coins) => coins.id, {
-    onDelete: 'CASCADE',
-    cascade: true
-  })
+  @OneToMany(() => Coins, (c) => c.wallet)
   coins: Coins[];
-  */
+
   @Exclude()
   @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP(6)', select: false })
   created_at: Date;
