@@ -43,7 +43,7 @@ export class WalletController {
     return this.walletService.findOneByAddress(address);
   }
 
-  @Put(':address')  
+  @Put(':address')
   update(@Param(JoiPipe) address: AddressDto, @Body(JoiPipe) updateCoinDto: CoinDto) {
     return this.walletService.update(address, updateCoinDto);
   }

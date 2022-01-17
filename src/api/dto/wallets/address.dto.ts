@@ -8,10 +8,13 @@ export class AddressDto {
     description: 'The wallet id'
   })
   @JoiSchema(
-    Joi.string().regex(AddressRegex).messages({
-      'string.pattern.base': `{#label} with value {:[.]} fails to match the required pattern format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`
-    }).min(36)
-    .max(36)
+    Joi.string()
+      .regex(AddressRegex)
+      .messages({
+        'string.pattern.base': `{#label} with value {:[.]} fails to match the required pattern format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`
+      })
+      .min(36)
+      .max(36)
   )
   address: string;
 }

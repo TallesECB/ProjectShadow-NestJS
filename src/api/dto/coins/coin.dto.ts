@@ -1,4 +1,3 @@
-
 import { ApiProperty } from '@nestjs/swagger';
 import { JoiSchema } from 'nestjs-joi';
 import * as Joi from 'joi';
@@ -24,7 +23,7 @@ export class CoinDto {
   })
   @JoiSchema(Joi.string().trim().required())
   currentCoin: string;
-  
+
   @ApiProperty({
     description: 'The Value Coin'
   })

@@ -13,10 +13,13 @@ export class Coins {
   @Column({ nullable: false })
   fullname: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, type: 'float', scale: 3 })
   amont: number;
 
-  @ManyToOne(() => Wallet, (w) => w.coins)
+  @ManyToOne(() => Wallet, (w) => w.coins, {
+    onDelete: 'CASCADE',
+    cascade: true
+  })
   wallet: Wallet;
   coins: Wallet[];
 
