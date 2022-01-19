@@ -16,18 +16,19 @@ export class Wallet {
   @Column({ type: 'date', nullable: false })
   birthdate: Date;
 
-  @OneToMany(() => Coins, (c) => c.wallet)
+  @OneToMany(() => Coins, (c) => c.wallet, {
+    eager: true
+  })
   coins: Coins[];
 
   @Exclude()
-  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP(6)', select: false })
+  @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP(6)' })
   created_at: Date;
 
   @Exclude()
   @UpdateDateColumn({
     default: () => 'CURRENT_TIMESTAMP(6)',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
-    select: false
+    onUpdate: 'CURRENT_TIMESTAMP(6)'
   })
   updated_at: Date;
 }

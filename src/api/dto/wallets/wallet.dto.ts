@@ -4,6 +4,7 @@ import * as Joi from 'joi';
 import Extension from '@joi/date';
 import { CpfRegex } from '../utils/regex';
 import { AddressRegex } from '../utils/regex';
+import { Coins } from '../../models/coins.entity';
 
 const JoiDate = Joi.extend(Extension);
 
@@ -49,6 +50,8 @@ export class WalletDto {
       .required()
   )
   birthdate: Date;
+
+  coins: Coins[];
 
   @ApiProperty({
     description: 'The Wallet Created Date',

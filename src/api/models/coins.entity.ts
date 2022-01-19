@@ -1,6 +1,15 @@
 import { Exclude } from 'class-transformer';
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
+} from 'typeorm';
 import { Wallet } from './wallet.entity';
+import { Transactions } from './transactions.entity';
 
 @Entity('coin')
 export class Coins {
@@ -22,6 +31,11 @@ export class Coins {
   })
   wallet: Wallet;
   coins: Wallet[];
+
+  @OneToMany(() => Transactions, (t) => t.coins, {
+    eager: true
+  })
+  transactions: Transactions[];
 
   @Exclude()
   @CreateDateColumn({ default: () => 'CURRENT_TIMESTAMP(6)', select: false })

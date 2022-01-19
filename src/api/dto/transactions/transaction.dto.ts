@@ -1,16 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { JoiSchema } from 'nestjs-joi';
 import * as Joi from 'joi';
-import { IdCoinRegex } from '../utils/regex';
+import { AddressRegex } from '../utils/regex';
 
-export class CoinDto {
+export class TransactionDto {
   @ApiProperty({
-    description: 'The Coin id',
+    description: 'The wallet id',
     required: false,
     readOnly: true
   })
-  @JoiSchema(Joi.string().regex(IdCoinRegex))
-  idCoin: string;
+  @JoiSchema(Joi.string().regex(AddressRegex))
+  receiverAddress: string;
 
   @ApiProperty({
     description: 'The quoteTo Coin'
@@ -29,22 +29,4 @@ export class CoinDto {
   })
   @JoiSchema(Joi.number().required())
   value: number;
-
-  @ApiProperty({
-    description: 'The Value Coin'
-  })
-  @JoiSchema(Joi.number().required())
-  transactions: object;
-
-  @ApiProperty({
-    description: 'The Coin Created Date',
-    example: '14/11/1994'
-  })
-  created_at: Date;
-
-  @ApiProperty({
-    description: 'The Coin Updated Date',
-    example: '14/11/1994'
-  })
-  updated_at: Date;
 }
